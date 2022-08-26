@@ -8,6 +8,7 @@ services:
       - /var/lib/postgresql/data/
     env_file:
       - ./.env
+
   web:
     image: abpdock/api_yamdb:init
     restart: always
