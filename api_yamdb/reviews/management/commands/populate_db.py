@@ -36,7 +36,7 @@ class Command(BaseCommand):
             )
             filename = os.path.join(settings.DATA_DIR, table + '.csv')
             self.stdout.write(filename)
-            Model = FILE_MODEL_DICT[table]
+            model = FILE_MODEL_DICT[table]
             data_list = []
             with open(filename, encoding='utf-8') as csvfile:
                 reader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
@@ -55,21 +55,21 @@ class Command(BaseCommand):
                         row['author'] = User.objects.get(
                             pk=row['author']
                         )
-                    data_list.append(Model(**row))
+                    data_list.append(model(**row))
             if options['delete']:
                 self.stdout.write(
-                    f'Записей до удаления: {Model.objects.all().count()}'
+                    f'Записей до удаления: {model.objects.all().count()}'
                 )
                 for data in data_list:
-                    Model.objects.filter(pk=data.id).delete()
+                    model.objects.filter(pk=data.id).delete()
                 self.stdout.write(
-                    f'Записей после удаления: {Model.objects.all().count()}'
+                    f'Записей после удаления: {model.objects.all().count()}'
                 )
             else:
                 self.stdout.write(
-                    f'Записей до вставки: {Model.objects.all().count()}'
+                    f'Записей до вставки: {model.objects.all().count()}'
                 )
-                Model.objects.bulk_create(data_list)
+                model.objects.bulk_create(data_list)
                 self.stdout.write(
-                    f'Записей после вставки: {Model.objects.all().count()}'
+                    f'Записей после вставки: {model.objects.all().count()}'
                 )
