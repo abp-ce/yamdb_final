@@ -57,8 +57,8 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          docker compose stop
-          docker compose rm web
+          docker compose stop $$(docker ps -a -q)
+          docker compose rm web $$(docker ps -a -q)
           touch .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
           echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
