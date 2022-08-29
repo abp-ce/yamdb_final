@@ -44,5 +44,4 @@ docker-compose exec web python manage.py createsuperuser
 ```
 http://localhost/redoc/
 ```
-
 ![YAMDB_final workflow](https://github.com/abp-ce/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
